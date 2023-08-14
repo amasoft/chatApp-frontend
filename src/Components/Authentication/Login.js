@@ -16,13 +16,12 @@ const Login = () => {
   const [password, setpassword] = useState();
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const toast = useToast();
   const history = useHistory();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log("data sent ");
     setLoading(true);
     // if (!name || !email || !password || !confirmPassword) {
     if (!email || !password) {

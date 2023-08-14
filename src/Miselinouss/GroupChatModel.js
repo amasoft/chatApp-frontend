@@ -31,28 +31,22 @@ const GroupChatModel = ({ children }) => {
   const { user, chats, setChats } = ChatState();
 
   const handleSearch = async (da) => {
-    // const da = e.target.value;
-    console.log("search query" + da);
-
     setSearch(da);
     console.log("search v2+" + search);
     // if (!query) {
     //   return;
     // }
     try {
-      // setLoading(true);
+      setLoading(true);
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const url = `http://localhost:5000/api/user?search=${search}`;
       const { data } = await axios.get(
         `http://localhost:5000/api/user?search=${search}`,
         config
       );
-      console.log("url+" + url);
-      console.log(data);
       setLoading(false);
       setsearchResult(data);
     } catch (error) {
@@ -93,7 +87,7 @@ const GroupChatModel = ({ children }) => {
         "http://localhost:5000/api/chat/group",
         {
           name: groupChatName,
-          users: JSON.stringify(selectedUsers.map((u) => u.id)),
+          users: JSON.stringify(selectedUsers.map((u) => u._id)),
         },
         config
       );

@@ -11,6 +11,7 @@ const MyChat = ({ fetchAgain }) => {
   const [loggedUser, setloggedUser] = useState();
   const { SelectedChat, setSelectedChat, chats, user, setChats, set } =
     ChatState();
+  console.log("from MyChat" + fetchAgain);
   const inf = JSON.parse(localStorage.getItem("userInfo"));
   console.log("loggedUser");
   console.log(loggedUser);
