@@ -9,13 +9,13 @@ import {
 import { ChatState } from "../Context/ChatProvider";
 import { Avatar, Tooltip } from "@chakra-ui/react";
 const ScrollableChat = ({ messages }) => {
-  console.log("hi sirp", JSON.stringify(messages));
+  //console.log("hi sirp", JSON.stringify(messages));
   const { user } = ChatState();
   return (
     <ScrollableFeed>
       {messages &&
         messages.map((m, i) => {
-          console.log("index", i);
+          // console.log("index", i);
           return (
             <div style={{ display: "flex" }} key={m._id}>
               {isSameSender(messages, m, i, user._id) ||

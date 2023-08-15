@@ -27,13 +27,23 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import ChatLoading from "./ChatLoading";
 import UserListItem from "../Components/UserAvater/UserListItem";
+import { getSender, getSenderforSidebarNoti } from "../config/Chatslogic";
+import { Effect } from "react-notification-badge";
+import NotificationBadge from "react-notification-badge";
 
 const SideBar = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setsearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setloadingChat] = useState("");
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const {
+    user,
+    setSelectedChat,
+    chats,
+    setChats,
+    notification,
+    setNotification,
+  } = ChatState();
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const logoutHandler = () => {
@@ -136,8 +146,45 @@ const SideBar = () => {
         <div>
           <Menu>
             <MenuButton p={1}>
+              <NotificationBadge
+                count={notification.length}
+                effect={Effect.SCALE}
+              />
               <BellIcon fontSize="2x1" m={1} />
             </MenuButton>
+            <MenuList pl={2}>
+              {!notification.length && "No New messages"}
+              {notification.map((notif) => {
+                return (
+                  <MenuItem
+                    key={notif._id}
+                    onClick={() => {
+                      setSelectedChat(notif.chat);
+                      setNotification(notification.filter((n) => n !== notif)); //removes it from the lit of notification
+                    }}
+                  >
+                    {console.log(
+                      "the sender " +
+                        `New message from ${getSenderforSidebarNoti(
+                          user,
+                          notif.chat.users,
+                          "sidebar"
+                        )}`
+                    )}
+                    {
+                      // notif.chat.isGroupChat
+                      //   ? `New Message in ${notif.chat.chatName}`
+                      // :
+                      `New message from ${getSenderforSidebarNoti(
+                        user,
+                        notif.chat.users,
+                        "sidebar"
+                      )}`
+                    }
+                  </MenuItem>
+                );
+              })}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>

@@ -11,10 +11,7 @@ const MyChat = ({ fetchAgain }) => {
   const [loggedUser, setloggedUser] = useState();
   const { SelectedChat, setSelectedChat, chats, user, setChats, set } =
     ChatState();
-  console.log("from MyChat" + fetchAgain);
-  const inf = JSON.parse(localStorage.getItem("userInfo"));
-  console.log("loggedUser");
-  console.log(loggedUser);
+  // console.log("from MyChat" + fetchAgain);
 
   const toast = useToast();
   const fetchChats = async () => {
@@ -29,7 +26,7 @@ const MyChat = ({ fetchAgain }) => {
         `http://localhost:5000/api/chat`,
         config
       );
-      console.log("all chats", JSON.stringify(data));
+
       setChats(data);
     } catch (error) {
       toast({
@@ -46,7 +43,9 @@ const MyChat = ({ fetchAgain }) => {
     setloggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
   }, [fetchAgain]); // so if there is any
-
+  // const inf = JSON.parse(localStorage.getItem("userInfo"));
+  // console.log("loggedUser");
+  // console.log(loggedUser);
   return (
     <Box
       // display={{ base: setSelectedChat ? "none" : "flex", md: "flex" }}
@@ -106,7 +105,7 @@ const MyChat = ({ fetchAgain }) => {
               >
                 <Text>
                   {!chat.isGroupChat
-                    ? getSender(loggedUser, chat.users)
+                    ? getSender(loggedUser, chat.users, "my chart")
                     : chat.chatName}
                 </Text>
               </Box>

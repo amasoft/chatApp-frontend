@@ -1,6 +1,13 @@
-export const getSender = (loggedUser, users) => {
+//for sidebar,later retifiy it aby making sure data store in contex user is in th efarmat data:{id.....},it sea,s it does nt have this frpmat that why it hrows error
+export const getSenderforSidebarNoti = (loggedUser, users, source) => {
+  return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
+};
+
+export const getSender = (loggedUser, users, source) => {
+  console.log(source, loggedUser);
+
   // if users of 0 id is logged in user return the second [eron else return the first on   sinc e it only  2 users er chat]
-  // console.log(2, JSON.stringify(loggedUser._id));
+  // console.log(2, JSON.stringify(loggedUser));
   // console.log(
   //   "getsender" + users[0]._id === loggedUser.data._id
   //     ? users[1].name
@@ -31,7 +38,7 @@ export const getSenderFull = (loggedUser, users) => {
 };
 
 export const isSameSender = (messages, m, i, userId) => {
-  console.log("catlogic", JSON.stringify(messages));
+  //console.log("catlogic", JSON.stringify(messages));
 
   return (
     i < messages.length - 1 && //if it the last message
