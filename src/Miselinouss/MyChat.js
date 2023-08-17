@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import axios from "axios";
 import { AddIcon } from "@chakra-ui/icons";
-import { getSender } from "../config/Chatslogic";
+import { getLastMessage, getSender } from "../config/Chatslogic";
 import ChatLoading from "./ChatLoading";
 import GroupChatModel from "./GroupChatModel";
 
@@ -26,7 +26,6 @@ const MyChat = ({ fetchAgain }) => {
         `http://localhost:5000/api/chat`,
         config
       );
-
       setChats(data);
     } catch (error) {
       toast({
@@ -91,25 +90,40 @@ const MyChat = ({ fetchAgain }) => {
       >
         {chats ? (
           <Stack overflowY="scroll">
-            {chats.map((chat) => (
-              <Box
-                onClick={() => setSelectedChat(chat)}
-                cursor="pointer"
-                bg={SelectedChat === chat ? "#38B2AC" : "#E8E8E8"}
-                // bg={SelectedChat === chat ? "red" : "#E8E8E8"}
-                color={SelectedChat === chat ? "white" : "black"}
-                px={3}
-                py={2}
-                borderRadius="lg"
-                key={chat._id}
-              >
-                <Text>
-                  {!chat.isGroupChat
-                    ? getSender(loggedUser, chat.users, "my chart")
-                    : chat.chatName}
-                </Text>
-              </Box>
-            ))}
+            {chats.map(
+              (chatt, id) => (
+                <Box
+                  onClick={() => setSelectedChat(chatt)}
+                  cursor="pointer"
+                  bg={SelectedChat === chatt ? "#38B2AC" : "#E8E8E8"}
+                  // bg={SelectedChat === chat ? "red" : "#E8E8E8"}
+                  color={SelectedChat === chatt ? "white" : "black"}
+                  px={3}
+                  py={2}
+                  borderRadius="lg"
+                  key={chatt._id}
+                >
+                  <Text>
+                    {!chatt.isGroupChat
+                      ? getSender(loggedUser, chatt.users, "my chart")
+                      : chatt.chatName}
+                  </Text>
+                  <Text>
+                    {/* {chatt.latestMessage ? chatt.latestMessage.content : ""} */}
+                    {chatt.latestMessage ? getLastMessage(chatt) : ""}
+                  </Text>
+                </Box>
+              )
+              // console.log("CHATS", chatt.latestMessage.chat ? !chat.isGroupChat :"")
+              // if (chatt.latestMessage) {
+              //   // console.log("CHATS", JSON.stringify(chatt));
+              //   console.log("CHATS", JSON.stringify(chatt));
+              //   console.log("CHATS", chatt.latestMessage.content);
+              // } else {
+              // }
+
+              // console.log("CHATS", chatt.content)
+            )}
           </Stack>
         ) : (
           <ChatLoading />

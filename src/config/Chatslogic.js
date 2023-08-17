@@ -1,39 +1,26 @@
+export const getLastMessage = (chat) => {
+  if (chat.isGroupChat) {
+    return chat.latestMessage.sender.name + ": " + chat.latestMessage.content;
+  }
+  return chat.latestMessage.content;
+};
 //for sidebar,later retifiy it aby making sure data store in contex user is in th efarmat data:{id.....},it sea,s it does nt have this frpmat that why it hrows error
 export const getSenderforSidebarNoti = (loggedUser, users, source) => {
   return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
 
 export const getSender = (loggedUser, users, source) => {
-  console.log(source, loggedUser);
-
   // if users of 0 id is logged in user return the second [eron else return the first on   sinc e it only  2 users er chat]
-  // console.log(2, JSON.stringify(loggedUser));
-  // console.log(
-  //   "getsender" + users[0]._id === loggedUser.data._id
-  //     ? users[1].name
-  //     : users[0].name
-  // );
-  return users[0]._id === loggedUser.data._id ? users[1].name : users[0].name;
+  return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
 
 // look into data fomat for loggedUser
 export const getSender_singleChat = (loggedUser, users) => {
   // if users of 0 id is logged in user return the second [eron else return the first on   sinc e it only  2 users er chat]
-  // console.log(2, JSON.stringify(loggedUser._id));
-  // console.log(
-  //   "getsender" + users[0]._id === loggedUser._id
-  //     ? users[1].name
-  //     : users[0].name
-  // );
   return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
 export const getSenderFull = (loggedUser, users) => {
   // if users of 0 id is logged in user return the second [eron else return the first on   sinc e it only  2 users er chat]
-  // console.log("full", JSON.stringify(users));
-  // console.log(
-  //   "getsenderfull",
-  //   users[0]._id === loggedUser._id ? users[1] : users[0]
-  // );
   return users[0]._id === loggedUser._id ? users[1] : users[0];
 };
 

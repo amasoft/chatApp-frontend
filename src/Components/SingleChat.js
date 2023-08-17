@@ -24,8 +24,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [loading, setLoading] = useState(false);
   const [newMessages, setnewMessages] = useState();
   const [socketConnected, setSocketConnected] = useState(false);
-  const { user, SelectedChat, setSelectedChat, notification, setNotification } =
-    ChatState();
+  const {
+    user,
+    SelectedChat,
+    setSelectedChat,
+    notification,
+    setNotification,
+    onlineStatus,
+    setOnlineStatus,
+  } = ChatState();
   const [typing, setTyping] = useState(false);
   const [isTyping, setisTyping] = useState(false);
   const defaultOptions = {
@@ -71,7 +78,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     socket = io(ENDPOINT);
     socket.emit("setup", user);
-    socket.on("connected", () => setSocketConnected(true));
+    // socket.on("connected", () => setSocketConnected(true));
+    socket.on("connected", () => {
+      setSocketConnected(true);
+      setOnlineStatus(true);
+    });
     socket.on("typing", () => setisTyping(true));
     socket.on("stop typing", () => setisTyping(false));
   }, []);
@@ -80,7 +91,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     selectedChatCompare = SelectedChat;
   }, [SelectedChat]);
   // for notification when new message is sent
-  console.log("notification>>>>>>", JSON.stringify(notification));
+  // console.log("notification>>>>>>", JSON.stringify(notification));
 
   useEffect(() => {
     socket.on("message received", (newMessageRecieved) => {
@@ -123,6 +134,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         console.log("message data", data);
         socket.emit("new Message", data);
         setMessages([...messages, data]);
+        setFetchAgain(!fetchAgain);
       } catch (error) {
         toast({
           title: "Error Occured ",

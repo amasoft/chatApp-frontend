@@ -43,10 +43,12 @@ const SideBar = () => {
     setChats,
     notification,
     setNotification,
+    onlineStatus,
   } = ChatState();
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const logoutHandler = () => {
+    console.log("remove data");
     localStorage.removeItem("userInfo");
     // localStorage.clear();
     history.push("/");
@@ -106,7 +108,7 @@ const SideBar = () => {
         config
       );
       // incase the logined user already have chats withe clicked user befor no just load thireprevious chats
-      // if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
+      if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setloadingChat(false);
       onClose();
@@ -142,6 +144,9 @@ const SideBar = () => {
         </Tooltip>
         <Text fontSize="2x1" fontFamily="Work sans">
           Talk-A-tive
+        </Text>
+        <Text fontSize="2x1" color={"green"} fontFamily="Work sans">
+          {onlineStatus ? "online" : "offline"}
         </Text>
         <div>
           <Menu>
