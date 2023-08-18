@@ -10,6 +10,8 @@ export const getSenderforSidebarNoti = (loggedUser, users, source) => {
 };
 
 export const getSender = (loggedUser, users, source) => {
+  console.log("users[0]._id:", users[0]._id);
+  console.log("loggedUser:", loggedUser);
   // if users of 0 id is logged in user return the second [eron else return the first on   sinc e it only  2 users er chat]
   return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };

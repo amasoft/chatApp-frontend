@@ -21,7 +21,6 @@ const Login = () => {
   const toast = useToast();
   const history = useHistory();
   const { setUser } = ChatState();
-  console.log("my hisroty", history);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -81,7 +80,7 @@ const Login = () => {
     // }
     await axios
       .post(
-        "http://localhost:5000/api/user/login",
+        "/api/user/login",
         // { name: "name", email: "email", password: "password" },
         { email, password },
         config
@@ -96,8 +95,8 @@ const Login = () => {
           isClosable: true,
           position: "bottom",
         });
-        setUser(res.data);
         localStorage.setItem("userInfo", JSON.stringify(res.data));
+        // setUser(res.data);
         setLoading(false);
         history.push("/chats");
         console.log("data details");
