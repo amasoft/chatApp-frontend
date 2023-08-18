@@ -19,7 +19,7 @@ import {
 import { ViewIcon } from "@chakra-ui/icons";
 import { ChatState } from "../Context/ChatProvider";
 import UserBadgeItem from "../Components/UserAvater/UserBadgeItem";
-import axios from "axios";
+import axios from "react-axios";
 import UserListItem from "../Components/UserAvater/UserListItem";
 
 const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {

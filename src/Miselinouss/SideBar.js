@@ -24,7 +24,7 @@ import React, { useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import ProfileModel from "./ProfileModel";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import axios from "react-axios";
 import ChatLoading from "./ChatLoading";
 import UserListItem from "../Components/UserAvater/UserListItem";
 import { getSender, getSenderforSidebarNoti } from "../config/Chatslogic";
