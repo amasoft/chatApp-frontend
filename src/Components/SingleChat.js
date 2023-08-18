@@ -15,8 +15,8 @@ import axios from "axios";
 import "./styles.css";
 import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
-import Lottie from "react-lottie";
-import animationData from "../animation/typing.json";
+// import Lottie from "react-lottie";
+// import animationData from "../animation/typing.json";
 const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -35,14 +35,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   } = ChatState();
   const [typing, setTyping] = useState(false);
   const [isTyping, setisTyping] = useState(false);
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSetting: {
-      PreserveAspectRatio: "xMidYMid slice",
-    },
-  };
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: animationData,
+  //   rendererSetting: {
+  //     PreserveAspectRatio: "xMidYMid slice",
+  //   },
+  // };
   const toast = useToast();
 
   const fetchMessages = async () => {
@@ -231,7 +231,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </div>
             )}
             <FormControl onKeyDown={sendMessage} isRequired mt={3}>
-              {isTyping ? (
+              {/* {isTyping ? (
                 <div>
                   <Lottie
                     options={defaultOptions}
@@ -241,7 +241,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 </div>
               ) : (
                 <></>
-              )}
+              )} */}
               <Input
                 variant="filled"
                 bg="#E0E0E0"
